@@ -12,6 +12,10 @@ class Pelota {
 
         this.nuevoColor = color(random(255), random(255), random(255), 200);
 
+        this.formaInterna = random(['cuadro', 'triangulo', 'circulo'])
+        this.tamInterno = random(this.rad / 2, this.rad - 2);
+        this.colorInterno = color(random(255), random(255), random(255), 220);
+
     }   
     
     actualizar(){
@@ -33,6 +37,27 @@ class Pelota {
         stroke("#ffffffff");
         strokeWeight(4);
         circle( this.posx, this.posy, this.diam);
+
+         noStroke();
+        fill(this.colorInterno);
+        let t = this.tamInterno;
+
+        switch (this.formaInterna) {
+            case 'cuadro':
+                rectMode(CENTER);
+                rect(this.posx, this.posy, t, t);
+                break;
+            case 'triangulo':
+                triangle(
+                    this.posx, this.posy - t/2,
+                    this.posx - t/2, this.posy + t/2,
+                    this.posx + t/2, this.posy + t/2
+                );
+                break;
+            case 'circulo':
+                ellipse(this.posx, this.posy, t);
+                break;
+        }
 
     }
 }
